@@ -47,3 +47,7 @@ func (engine *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	c := newContext(w, req)
 	engine.router.handle(c)
 }
+
+// 本函数将被用作是否为合理的处理函数
+// HandlerFunc defines the request handler used by gee
+type HandlerFuncution func(c *Context)

@@ -21,10 +21,14 @@ Context 随着每一个请求的出现而产生，请求的结束而销毁，和
 4.还有HTTP请求的方法.路径里面包含不了方法.
 */
 type Context struct {
-	Writer     http.ResponseWriter
-	Req        *http.Request
-	Path       string
-	Method     string
+	// origin objects
+	Writer http.ResponseWriter
+	Req    *http.Request
+	// request info
+	Path   string
+	Method string
+	Params map[string]string
+	// response info
 	StatusCode int
 }
 
