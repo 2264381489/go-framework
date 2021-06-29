@@ -1,1 +1,42 @@
-<mxfile host="app.diagrams.net" modified="2021-06-28T15:27:18.367Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36" version="14.6.11" etag="maHT0Kw3FjkEU-prks2N" type="github"><diagram id="AJUc7EWO7tmr2qCV5NwP">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2021-06-29T00:45:17.175Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36" etag="qQCTnG3LFg5Ca7nnOo4U" version="14.6.11" type="github">
+  <diagram id="AJUc7EWO7tmr2qCV5NwP" name="Page-1">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="0" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1920" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ecP7VwaqtGHgm7MsR1dV-5" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="190" width="450" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="ecP7VwaqtGHgm7MsR1dV-8" value="调用" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ecP7VwaqtGHgm7MsR1dV-1" target="ecP7VwaqtGHgm7MsR1dV-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ecP7VwaqtGHgm7MsR1dV-10" value="调用" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ecP7VwaqtGHgm7MsR1dV-1" target="ecP7VwaqtGHgm7MsR1dV-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="350" />
+              <mxPoint x="380" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ecP7VwaqtGHgm7MsR1dV-1" value="MAP&lt;br&gt;key：HTTP URL&lt;br&gt;value： handler Func&lt;br&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ecP7VwaqtGHgm7MsR1dV-4" value="请求" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="ecP7VwaqtGHgm7MsR1dV-2" target="ecP7VwaqtGHgm7MsR1dV-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ecP7VwaqtGHgm7MsR1dV-2" value="HTTP&lt;br&gt;请求" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ecP7VwaqtGHgm7MsR1dV-6" value="go-framework" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="210" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ecP7VwaqtGHgm7MsR1dV-7" value="处理函数" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ecP7VwaqtGHgm7MsR1dV-9" value="处理函数" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="390" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
