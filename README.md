@@ -6,7 +6,7 @@ go的自编框架
 
 但是实际上代码中只执行了一个简单的逻辑和java Spring框架中@requestMapping的基础作用一致，匹配访问的URL，并选择一个合适的处理器。
 
-The documentation for ServeMux explains how patterns are matched处理的具体逻辑在这里。
+The documentation for ServeMux explains how patterns are matched 处理的具体逻辑在这里。
 
 ```go
 package main
