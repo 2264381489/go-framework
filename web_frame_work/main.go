@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"go-frameWork/web_frame_work/gee"
+	"go-frameWork/web_frame_work/core"
 	"log"
 	// question 1: 为什么要如此引入
 	// 可能的原因,在我们的项目中之所以不如此引入,是因为使用了gitlab上的地址,所以不用填写相对位置.
@@ -11,15 +11,15 @@ import (
 
 func main() {
 
-	r := gee.New()
-	r.GET("/", func(c *gee.Context) {
+	r := core.New()
+	r.GET("/", func(c *core.Context) {
 
-		fmt.Fprintf(c.Writer, "URL.Path = %q\n", c.Req.URL)
+		fmt.Fprintf(c.Response, "URL.Path = %q\n", c.Request.URL)
 	})
 
-	r.GET("/hello", func(c *gee.Context) {
-		for k, v := range c.Req.Header {
-			fmt.Fprintf(c.Writer, "Header[%q] = %q\n", k, v)
+	r.GET("/hello", func(c *core.Context) {
+		for k, v := range c.Request.Header {
+			fmt.Fprintf(c.Response, "Header[%q] = %q\n", k, v)
 		}
 	})
 
