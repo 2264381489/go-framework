@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 )
 
 /* 这是本框架的入口方法 */
@@ -55,7 +56,6 @@ type RouterGroup struct {
 
 // 加入路由，将方法以method和url的组合为key，执行函数为value生成一个map
 func (engine *Engine) addRoute(method string, pattern string, handler HandlerFuncution) {
-
 	engine.router.addRoute(method, pattern, handler)
 }
 
@@ -78,9 +78,22 @@ func (engine *Engine) Run(addr string) (err error) {
 	return http.ListenAndServe(addr, engine)
 }
 
+// 增加中间件
+func (group *RouterGroup) Use(middlewares ...HandlerFuncution) {
+	group.middlewares = append(group.middlewares, middlewares...)
+}
+
 //实现的处理器。
 func (engine *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	var middlewares []HandlerFuncution
+	for _, group := range engine.groups {
+		// 按照访问的url 去断定使用 哪一个中间件
+		if strings.HasPrefix(req.URL.Path, group.prefix) {
+			middlewares = append(middlewares, group.middlewares...)
+		}
+	}
 	c := newContext(w, req)
+	c.handlers = middlewares
 	engine.router.handle(c)
 }
 

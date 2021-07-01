@@ -30,6 +30,10 @@ type Context struct {
 	Params map[string]string
 	// response info
 	StatusCode int
+
+	// middleware
+	handlers []HandlerFuncution // 存储中间件的数组
+	index    int                // 中间件计数器
 }
 
 /* 需要的方法,1.初始化 2.获取Req中内容 3.获得请求体中内容 4.写入的需求 5.转传承HTML的需求 */
@@ -40,7 +44,17 @@ func newContext(w http.ResponseWriter, req *http.Request) *Context {
 		Req:    req,          //涉及到的知识: https://golang.org/pkg/net/http/#Request
 		Path:   req.URL.Path, //涉及到的知识: https://golang.org/pkg/net/url/#URL
 		Method: req.Method,
+		index:  -1, // 中间件初始化, 因为用一个数组
 		// StatueCode应该不必初始化
+	}
+}
+
+// 中间件执行,每次请求都遍历一遍中间件
+func (c *Context) Next() {
+	c.index++
+	s := len(c.handlers)
+	for ; c.index < s; c.index++ {
+		c.handlers[c.index](c)
 	}
 }
 
