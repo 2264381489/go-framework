@@ -7,6 +7,6 @@ type DefaultRes struct {
 
 // 返回错误题
 type Errinfo struct {
-	code int
-	msg  string
+	Code int
+	Msg  string
 }

@@ -2,8 +2,8 @@ package core
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
+	"go-frameWork/web_frame_work/model"
 	"log"
 	"net/http"
 )
@@ -27,12 +27,13 @@ func (e *engine) Handler(c *Context) {
 	if ok {
 		handler(c)
 	} else {
-		data, err := json.Marshal(errors.New("404 NOT FOUND"))
+		res := &model.DefaultRes{Errinfo: &model.Errinfo{Code: 404, Msg: "404 NOT FOUND"}}
+		_, err := json.Marshal(res)
 		if err != nil {
 			log.Printf("%s json marshal fail", fun)
 		}
 
-		c.JSON(404, data)
+		c.JSON(404, res)
 	}
 }
 
