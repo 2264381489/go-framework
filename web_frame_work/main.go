@@ -18,6 +18,12 @@ type student struct {
 func main() {
 
 	r := core.New()
+	rgV3 := r.NewGroup("/V3")
+	rgV3.GET("/", func(c *core.Context) (interface{}, error) {
+
+		return &student{Age: 11, Name: "banyu"}, nil
+	})
+
 	rg := r.NewGroup("/V1")
 	rg.GET("/", func(c *core.Context) (interface{}, error) {
 

@@ -15,11 +15,13 @@ type RouterGroup struct {
 // 新建 一个路由组
 func (rg *RouterGroup) NewGroup(pattern string) *RouterGroup {
 	engine := rg.engine
-	rg.prefix = rg.prefix + pattern
-	return &RouterGroup{
-		prefix: rg.prefix,
+	// rg.prefix = rg.prefix + pattern
+	newGroup := &RouterGroup{
+		prefix: rg.prefix + pattern,
 		engine: engine,
 	}
+	engine.routerGroup = append(engine.routerGroup, newGroup)
+	return newGroup
 }
 
 func (m *RouterGroup) addRouter(method, url string, handler HandlerFuncution) {
