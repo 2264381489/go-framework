@@ -13,7 +13,7 @@ func newRouter() *router {
 }
 
 //
-type HandlerFuncution func(c *Context)
+type HandlerFuncution func(c *Context) (interface{}, error)
 
 func (m *router) addRouter(method, url string, handler HandlerFuncution) {
 
@@ -21,3 +21,5 @@ func (m *router) addRouter(method, url string, handler HandlerFuncution) {
 
 	m.core[key] = handler
 }
+
+// 设计思路1,加入interface.

@@ -9,18 +9,24 @@ import (
 	//todo 搞清楚golang的引入机制是如何运作的!!!!
 )
 
+type student struct {
+	Age  int64  `protobuf:"varint,1,opt,name=age,proto3" json:"age"`
+	Name string `protobuf:"bytes,2,opt,name=Name,proto3" json:"name"`
+}
+
 func main() {
 
 	r := core.New()
-	r.GET("/", func(c *core.Context) {
+	r.GET("/", func(c *core.Context) (interface{}, error) {
 
-		fmt.Fprintf(c.Response, "URL.Path = %q\n", c.Request.URL)
+		return &student{Age: 10, Name: "yan"}, nil
 	})
 
-	r.GET("/hello", func(c *core.Context) {
+	r.GET("/hello", func(c *core.Context) (interface{}, error) {
 		for k, v := range c.Request.Header {
 			fmt.Fprintf(c.Response, "Header[%q] = %q\n", k, v)
 		}
+		return nil, nil
 	})
 
 	err := r.Run(":9998")

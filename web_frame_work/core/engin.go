@@ -25,7 +25,11 @@ func (e *engine) Handler(c *Context) {
 	handler, ok := e.router.core[c.Method+"_"+c.Url]
 
 	if ok {
-		handler(c)
+		res, err := handler(c)
+		if err != nil {
+			c.JSON(500, res)
+		}
+		c.JSON(200, res)
 	} else {
 		res := &model.DefaultRes{Errinfo: &model.Errinfo{Code: 404, Msg: "404 NOT FOUND"}}
 		_, err := json.Marshal(res)
@@ -66,3 +70,5 @@ func (m *engine) PUT(url string, handler HandlerFuncution) {
 func (m *engine) AddRouter(method, url string, handler HandlerFuncution) {
 	m.router.addRouter(method, url, handler)
 }
+
+//
