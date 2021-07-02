@@ -9,14 +9,25 @@ import (
 )
 
 type engine struct {
-	router *router
+	router       *router
+	*RouterGroup // 提供routergroup 功能,外加初始routerGroup,其余的routerGroup都是由这个创建的
+	routerGroup  []*RouterGroup
 }
+
+/* 核心 */
 
 /* 框架初始化 */
 func New() *engine {
-	return &engine{
+	engine := &engine{
 		router: newRouter(),
 	}
+	// $root 为 所有路由的根节点, 并且隐藏
+	routerGroup := &RouterGroup{prefix: "$root", engine: engine}
+	// 初始的routerGroup,根节点
+	engine.RouterGroup = routerGroup
+	engine.routerGroup = append(engine.routerGroup, routerGroup)
+	// engine
+	return engine
 }
 
 /* 处理访问请求 */
@@ -46,7 +57,8 @@ func (e *engine) Handler(c *Context) {
 func (e *engine) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	/* 封装请求 */
 	c := newContext(w, r)
-	fmt.Println(c.Method + "_" + c.Url)
+	fmt.Println()
+	fmt.Printf("req method %s url: %s ", r.Method, r.URL.Path)
 	e.Handler(c)
 }
 
@@ -56,6 +68,8 @@ func (e *engine) Run(addr string) error {
 	log.Println(e.router.core)
 	return http.ListenAndServe(addr, e)
 }
+
+/* 访问请求 */
 
 // 请求访问方法(无分组)
 func (m *engine) GET(url string, handler HandlerFuncution) {
@@ -70,5 +84,3 @@ func (m *engine) PUT(url string, handler HandlerFuncution) {
 func (m *engine) AddRouter(method, url string, handler HandlerFuncution) {
 	m.router.addRouter(method, url, handler)
 }
-
-//

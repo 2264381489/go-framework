@@ -17,12 +17,13 @@ type student struct {
 func main() {
 
 	r := core.New()
-	r.GET("/", func(c *core.Context) (interface{}, error) {
+	rg := r.NewGroup("/V1")
+	rg.GET("/", func(c *core.Context) (interface{}, error) {
 
 		return &student{Age: 10, Name: "yan"}, nil
 	})
 
-	r.GET("/hello", func(c *core.Context) (interface{}, error) {
+	rg.GET("/hello", func(c *core.Context) (interface{}, error) {
 		for k, v := range c.Request.Header {
 			fmt.Fprintf(c.Response, "Header[%q] = %q\n", k, v)
 		}
