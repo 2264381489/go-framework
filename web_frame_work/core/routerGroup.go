@@ -15,9 +15,9 @@ type RouterGroup struct {
 // 新建 一个路由组
 func (rg *RouterGroup) NewGroup(pattern string) *RouterGroup {
 	engine := rg.engine
-	pattern = rg.prefix + pattern
+	rg.prefix = rg.prefix + pattern
 	return &RouterGroup{
-		prefix: pattern,
+		prefix: rg.prefix,
 		engine: engine,
 	}
 }

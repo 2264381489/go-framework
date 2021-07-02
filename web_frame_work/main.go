@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"go-frameWork/web_frame_work/core"
+	"go-frameWork/web_frame_work/model"
 	"log"
 	// question 1: 为什么要如此引入
 	// 可能的原因,在我们的项目中之所以不如此引入,是因为使用了gitlab上的地址,所以不用填写相对位置.
@@ -28,6 +29,11 @@ func main() {
 			fmt.Fprintf(c.Response, "Header[%q] = %q\n", k, v)
 		}
 		return nil, nil
+	})
+	rg.NewGroup("/V2")
+	rg.GET("/", func(c *core.Context) (interface{}, error) {
+
+		return &model.DefaultRes{Errinfo: &model.Errinfo{Code: -1, Msg: "测试错误"}}, nil
 	})
 
 	err := r.Run(":9998")
