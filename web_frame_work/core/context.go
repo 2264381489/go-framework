@@ -23,13 +23,25 @@ type Context struct {
 	StatusCode int
 	// 参数
 	params map[string][]string
+	// middleware
+	handlers []HandlerFuncution // 存储中间件的数组
+	index    int                // 中间件计数器
 }
 
 /* 初始化context */
 func newContext(w http.ResponseWriter, r *http.Request) *Context {
 	url := FormatUrl(r.URL.Path)
-	return &Context{Response: w, Request: r, Method: r.Method, Url: url}
+	return &Context{Response: w, Request: r, Method: r.Method, Url: url, index: -1}
 
+}
+
+// 中间件执行,每次请求都遍历一遍中间件
+func (c *Context) Next() {
+	c.index++
+	s := len(c.handlers)
+	for ; c.index < s; c.index++ {
+		c.handlers[c.index](c)
+	}
 }
 
 // 写入 响应码

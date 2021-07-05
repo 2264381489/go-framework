@@ -22,4 +22,18 @@ func (m *router) addRouter(method, url string, handler HandlerFuncution) {
 	m.core[key] = handler
 }
 
-// 设计思路1,加入interface.
+/* 访问请求 */
+
+// 请求访问方法(无分组)
+func (m *engine) GET(url string, handler HandlerFuncution) {
+	m.router.addRouter("GET", url, handler)
+}
+func (m *engine) POST(url string, handler HandlerFuncution) {
+	m.router.addRouter("POST", url, handler)
+}
+func (m *engine) PUT(url string, handler HandlerFuncution) {
+	m.router.addRouter("PUT", url, handler)
+}
+func (m *engine) AddRouter(method, url string, handler HandlerFuncution) {
+	m.router.addRouter(method, url, handler)
+}

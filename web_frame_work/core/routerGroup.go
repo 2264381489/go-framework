@@ -9,13 +9,13 @@ type RouterGroup struct {
 	// 前缀 以此形成嵌套 的 路由组
 	prefix string
 	// 为了获得router
-	engine *engine
+	engine      *engine
+	middlewares []HandlerFuncution // support middleware
 }
 
 // 新建 一个路由组
 func (rg *RouterGroup) NewGroup(pattern string) *RouterGroup {
 	engine := rg.engine
-	// rg.prefix = rg.prefix + pattern
 	newGroup := &RouterGroup{
 		prefix: rg.prefix + pattern,
 		engine: engine,
@@ -44,6 +44,12 @@ func (m *RouterGroup) PUT(url string, handler HandlerFuncution) {
 }
 func (m *RouterGroup) AddRouter(method, url string, handler HandlerFuncution) {
 	m.addRouter(method, url, handler)
+}
+
+// 为路由组添加中间件
+// Use is defined to add middleware to the group
+func (group *RouterGroup) Use(middlewares ...HandlerFuncution) {
+	group.middlewares = append(group.middlewares, middlewares...)
 }
 
 /* 规范url */

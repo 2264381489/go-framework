@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"go-frameWork/web_frame_work/core"
+	"go-frameWork/web_frame_work/middleware"
 	"go-frameWork/web_frame_work/model"
 	"log"
 	// question 1: 为什么要如此引入
@@ -18,7 +19,9 @@ type student struct {
 func main() {
 
 	r := core.New()
+	r.Use(middleware.Logger())
 	rgV3 := r.NewGroup("/V3")
+	rgV3.Use(middleware.Logger())
 	rgV3.GET("/", func(c *core.Context) (interface{}, error) {
 
 		return &student{Age: 11, Name: "banyu"}, nil
