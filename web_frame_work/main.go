@@ -1,52 +1,28 @@
 package main
 
 import (
-	"fmt"
-	"go-frameWork/web_frame_work/core"
-	"go-frameWork/web_frame_work/middleware"
-	"go-frameWork/web_frame_work/model"
+	"database/sql"
 	"log"
-	// question 1: 为什么要如此引入
-	// 可能的原因,在我们的项目中之所以不如此引入,是因为使用了gitlab上的地址,所以不用填写相对位置.
-	//todo 搞清楚golang的引入机制是如何运作的!!!!
+
+	_ "github.com/go-sql-driver/mysql"
 )
-
-type student struct {
-	Age  int64  `protobuf:"varint,1,opt,name=age,proto3" json:"age"`
-	Name string `protobuf:"bytes,2,opt,name=Name,proto3" json:"name"`
-}
-
 func main() {
 
-	r := core.New()
-	r.Use(middleware.Logger())
-	rgV3 := r.NewGroup("/V3")
-	rgV3.Use(middleware.Logger())
-	rgV3.GET("/", func(c *core.Context) (interface{}, error) {
-
-		return &student{Age: 11, Name: "banyu"}, nil
-	})
-
-	rg := r.NewGroup("/V1")
-	rg.GET("/", func(c *core.Context) (interface{}, error) {
-
-		return &student{Age: 10, Name: "yan"}, nil
-	})
-
-	rg.GET("/hello", func(c *core.Context) (interface{}, error) {
-		for k, v := range c.Request.Header {
-			fmt.Fprintf(c.Response, "Header[%q] = %q\n", k, v)
-		}
-		return nil, nil
-	})
-	rg.NewGroup("/V2")
-	rg.GET("/", func(c *core.Context) (interface{}, error) {
-
-		return &model.DefaultRes{Errinfo: &model.Errinfo{Code: -1, Msg: "测试错误"}}, nil
-	})
-
-	err := r.Run(":9998")
-	if err != nil {
-		log.Fatalf(err.Error())
+	db,err:=sql.Open("mysql","root:a13840419132@tcp(127.0.0.1:3306)/seckill")
+	if err != nil{
+		panic(err)
 	}
+	_, _ = db.Exec("DROP TABLE IF EXISTS User;")
+	_, _ = db.Exec("CREATE TABLE User(Name text);")
+	result, err := db.Exec("INSERT INTO User(`Name`) values (?), (?)", "Tom", "Sam")
+	if err == nil {
+		affected, _ := result.RowsAffected()
+		log.Println(affected)
+	}
+	row := db.QueryRow("SELECT Name FROM User LIMIT 1")
+	var name string
+	if err := row.Scan(&name); err == nil {
+		log.Println(name)
+	}
+
 }
